@@ -1,5 +1,6 @@
 package com.farcr.treephysics.api.manager;
 
+import com.farcr.treephysics.TreePhysicsConfig;
 import dev.ryanhcode.sable.companion.math.BoundingBox3ic;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -19,7 +20,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class TreeServerHandler extends SavedData {
-    public static final int MAX_LIFE_TICKS = 144000;
     public static final String ID = "treephysics_trees";
 
     private final Map<UUID, TreeData> trees = new Object2ObjectOpenHashMap<>();
@@ -40,7 +40,7 @@ public class TreeServerHandler extends SavedData {
                 continue;
             }
 
-            if (tree.lifeTicks > MAX_LIFE_TICKS) {
+            if (tree.lifeTicks > TreePhysicsConfig.MAX_LIFE_TICKS.getAsInt()) {
                 subLevel.markRemoved();
                 continue;
             }

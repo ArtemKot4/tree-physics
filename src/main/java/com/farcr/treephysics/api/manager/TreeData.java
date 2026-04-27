@@ -42,5 +42,12 @@ public class TreeData {
         return container.getSubLevel(this.subLevelId);
     }
 
-
+    @Override
+    public String toString() {
+        return "TreeData{" +
+                "subLevelId=" + subLevelId +
+                ", lifeTicks=" + lifeTicks +
+                ", leafBreakProgress=" + leafBreakProgress +
+                '}';
+    }
 }
