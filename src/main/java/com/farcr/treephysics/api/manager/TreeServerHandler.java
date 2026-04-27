@@ -1,6 +1,7 @@
 package com.farcr.treephysics.api.manager;
 
 import dev.ryanhcode.sable.companion.math.BoundingBox3ic;
+import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -95,8 +96,17 @@ public class TreeServerHandler extends SavedData {
     public void unsetTree(SubLevel subLevel) {
         System.out.println("tree removed! " + this.trees.get(subLevel.getUniqueId()));
         this.trees.remove(subLevel.getUniqueId());
-
         this.setDirty();
+    }
+
+    public void setSplitFrom(SubLevel subLevel, SubLevel split) {
+        TreeData originalTree = this.trees.get(subLevel.getUniqueId());
+        if(originalTree != null) {
+            TreeData data = new TreeData(split.getUniqueId()).copy(originalTree);
+            this.trees.put(split.getUniqueId(), data);
+            System.out.println("tree split off! " + data);
+            this.setDirty();
+        }
     }
 
     @Override
@@ -106,7 +116,7 @@ public class TreeServerHandler extends SavedData {
     }
 
     public boolean isTree(SubLevel subLevel) {
-        return trees.containsKey(subLevel.getUniqueId());
+        return subLevel != null && trees.containsKey(subLevel.getUniqueId());
     }
 
     private static TreeServerHandler create(ServerLevel level, CompoundTag tag, HolderLookup.Provider registries) {

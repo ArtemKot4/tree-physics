@@ -31,6 +31,12 @@ public class TreeData {
         this(subLevelId, 0, 1);
     }
 
+    public TreeData copy(TreeData data) {
+        this.lifeTicks = data.lifeTicks;
+        this.leafBreakProgress = data.leafBreakProgress;
+        return this;
+    }
+
     public @Nullable SubLevel getSubLevel(Level level) {
         SubLevelContainer container = SubLevelContainer.getContainer(level);
         return container.getSubLevel(this.subLevelId);
