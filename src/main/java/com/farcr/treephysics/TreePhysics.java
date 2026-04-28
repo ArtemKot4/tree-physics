@@ -1,6 +1,7 @@
 package com.farcr.treephysics;
 
 import com.farcr.treephysics.event.CommonEvents;
+import com.farcr.treephysics.networking.TreePhysicsPackets;
 import com.mojang.logging.LogUtils;
 import dev.ryanhcode.sable.platform.SableEventPlatform;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +22,7 @@ public class TreePhysics {
         SableEventPlatform.INSTANCE.onSubLevelContainerReady(CommonEvents::containerReady);
         SableEventPlatform.INSTANCE.onPostPhysicsTick(CommonEvents::postPhysicsTick);
         modContainer.registerConfig(ModConfig.Type.COMMON, TreePhysicsConfig.SPEC);
+        TreePhysicsPackets.init();
     }
 
     public static ResourceLocation path(String id) {
