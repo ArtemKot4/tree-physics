@@ -22,9 +22,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.saveddata.SavedData;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 
 import java.util.List;
@@ -142,8 +144,13 @@ public class TreeServerHandler extends SavedData implements TreeManager {
     }
 
     @Override
-    public boolean isTree(SubLevel subLevel) {
+    public boolean isTree(@Nullable SubLevel subLevel) {
         return subLevel != null && trees.containsKey(subLevel.getUniqueId());
+    }
+
+    @Override
+    public Level getLevel() {
+        return this.level;
     }
 
     private static TreeServerHandler create(ServerLevel level, CompoundTag tag, HolderLookup.Provider registries) {

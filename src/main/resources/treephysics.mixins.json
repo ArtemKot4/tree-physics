@@ -9,6 +9,7 @@
     "TrunkPlacerMixin"
   ],
   "client": [
+    "ParticleEngineMixin"
   ],
   "injectors": {
     "defaultRequire": 1
