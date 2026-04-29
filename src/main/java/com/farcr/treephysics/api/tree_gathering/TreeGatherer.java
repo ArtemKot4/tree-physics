@@ -20,9 +20,9 @@ public class TreeGatherer {
     // TODO: make this a config
     private static final int MAX_ITERATIONS = 100000;
 
-    public static void trySplit(ServerLevel level, BlockPos brokenPos) {
+    public static @Nullable List<ServerSubLevel> trySplit(ServerLevel level, BlockPos brokenPos) {
         if(!isValidTree(level, brokenPos)) {
-            return;
+            return null;
         }
 
         List<Collection<BlockPos>> toSplit = new ArrayList<>();
@@ -39,11 +39,16 @@ public class TreeGatherer {
             }
         }
 
+        List<ServerSubLevel> subLevels = new ArrayList<>();
+
         for (Collection<BlockPos> blocks : toSplit) {
             ServerSubLevel serverSubLevel = SubLevelAssemblyHelper.assembleBlocks(level, brokenPos, blocks, new BoundingBox3i(brokenPos, brokenPos));
+            subLevels.add(serverSubLevel);
             TreeServerHandler handler = TreeServerHandler.get(level);
             handler.setTree(serverSubLevel);
         }
+
+        return subLevels;
     }
 
     public static boolean isValidTree(BlockGetter blockGetter, BlockPos start) {

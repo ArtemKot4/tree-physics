@@ -7,9 +7,12 @@ import com.farcr.treephysics.api.tree_gathering.TreeGatherer;
 import com.farcr.treephysics.client.TreeManager;
 import dev.ryanhcode.sable.Sable;
 import dev.ryanhcode.sable.api.physics.PhysicsPipeline;
+import dev.ryanhcode.sable.api.physics.handle.RigidBodyHandle;
 import dev.ryanhcode.sable.api.sublevel.ServerSubLevelContainer;
 import dev.ryanhcode.sable.api.sublevel.SubLevelContainer;
 import dev.ryanhcode.sable.companion.math.BoundingBox3ic;
+import dev.ryanhcode.sable.companion.math.JOMLConversion;
+import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import dev.ryanhcode.sable.sublevel.system.SubLevelPhysicsSystem;
 import net.minecraft.core.BlockPos;
@@ -26,6 +29,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +37,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import org.joml.Vector3d;
+
+import java.util.List;
 
 @EventBusSubscriber(modid = TreePhysics.MOD_ID)
 public class CommonEvents {
@@ -45,8 +52,27 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void blockBreak(BlockEvent.BreakEvent event) {
-        if(!event.getPlayer().isShiftKeyDown() && event.getPlayer().getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.AXES)) {
-            TreeGatherer.trySplit((ServerLevel) event.getLevel(), event.getPos());
+        Player player = event.getPlayer();
+        Level level = player.level();
+        BlockPos pos = event.getPos();
+
+        if(!player.isShiftKeyDown() && player.getItemInHand(InteractionHand.MAIN_HAND).is(ItemTags.AXES)) {
+            List<ServerSubLevel> subLevels = TreeGatherer.trySplit((ServerLevel) event.getLevel(), pos);
+            BlockState brokenState = level.getBlockState(pos);
+            if(subLevels == null || subLevels.isEmpty()) return;
+            if(!(brokenState.getBlock() instanceof RotatedPillarBlock) || brokenState.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) return;
+
+            ServerSubLevel subLevel = subLevels.getFirst();
+            SubLevelPhysicsSystem system = SubLevelPhysicsSystem.get(level);
+            RigidBodyHandle handle = system.getPhysicsHandle(subLevel);
+
+            Vec3 breakDirection = player.getEyePosition().subtract(pos.getCenter()).normalize();
+            Vector3d forward = new Vector3d(JOMLConversion.toJOML(Direction.getNearest(breakDirection).getNormal()));
+            forward.rotateAxis(Math.toRadians(level.getRandom().nextIntBetweenInclusive(-25, 25)), 0, 1, 0);
+            Vector3d torque = forward.cross(0, 1, 0, new Vector3d()).mul(0.3);
+            Vector3d velocity = forward.negate(new Vector3d());
+
+            handle.addLinearAndAngularVelocity(velocity, torque);
         }
     }
 
