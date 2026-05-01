@@ -15,12 +15,15 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class CollisionDustParticle extends TextureSheetParticle implements ParticleExtension {
     private final SpriteSet spriteSet;
     private final BlockState state;
+
+    private int ticks = 0;
 
     public CollisionDustParticle(ClientLevel level, double x, double y, double z, SpriteSet spriteSet, BlockState state) {
         super(level, x, y, z);
@@ -33,7 +36,7 @@ public class CollisionDustParticle extends TextureSheetParticle implements Parti
 
         float vx = (float) ((Math.random() - 0.5f) * 2.0f) * 0.15f;
         float vz = (float) ((Math.random() - 0.5f) * 2.0f) * 0.15f;
-        this.setParticleSpeed(vx, Math.random() * 0.15, vz);
+        this.setParticleSpeed(vx, Math.random() * 0.05, vz);
 
         this.hasPhysics = false;
         this.setSpriteFromAge(this.spriteSet);
@@ -50,8 +53,12 @@ public class CollisionDustParticle extends TextureSheetParticle implements Parti
 
     @Override
     public void tick() {
-        this.setSpriteFromAge(this.spriteSet);
-        super.tick();
+        if(this.ticks % 3 == 0) {
+            this.setSpriteFromAge(this.spriteSet);
+            super.tick();
+        }
+
+        this.ticks++;
     }
 
     @Override
@@ -91,6 +98,12 @@ public class CollisionDustParticle extends TextureSheetParticle implements Parti
         color[0] /= pixels.length;
         color[1] /= pixels.length;
         color[2] /= pixels.length;
+
+        float greyscale = (color[0] + color[1] + color[2]) / 3.0f;
+        float desaturate = 0.4f;
+        color[0] = Mth.lerp(desaturate, color[0], greyscale);
+        color[1] = Mth.lerp(desaturate, color[1], greyscale);
+        color[2] = Mth.lerp(desaturate, color[2], greyscale);
 
         return color;
     }
