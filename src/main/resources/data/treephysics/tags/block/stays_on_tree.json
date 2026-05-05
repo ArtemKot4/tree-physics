@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:vine",
+    "minecraft:mangrove_propagule",
     { "id": "nomansland:shelf_mushroom_block", "required": false },
     { "id": "nomansland:shelf_mushroom", "required": false }
   ]

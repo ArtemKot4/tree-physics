@@ -41,6 +41,12 @@ public class TreeGatherer {
                 for (BlockPos pos : tree.fallingBlocks()) {
                     SubLevelAssemblyHelper.assembleBlocks(level, pos, List.of(pos), new BoundingBox3i(pos, pos));
                 }
+
+                for (BlockPos pos : tree.blocks()) {
+                    // this works but i'm not happy about it
+                    level.setBlock(pos, Blocks.BARRIER.defaultBlockState(), 2);
+                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                }
             }
         }
 
@@ -81,7 +87,7 @@ public class TreeGatherer {
             visited.add(centerPos.asLong());
             treeBlocks.add(centerPos);
 
-            if(!hasRoots && blockGetter.getBlockState(centerPos.below()).is(Blocks.ROOTED_DIRT)) {
+            if(!hasRoots && blockGetter.getBlockState(centerPos.below()).is(TreePhysicsTags.ROOTS)) {
                 hasRoots = true;
             }
 

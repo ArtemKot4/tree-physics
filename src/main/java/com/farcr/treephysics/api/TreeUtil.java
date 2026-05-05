@@ -74,10 +74,14 @@ public class TreeUtil {
             return context.isLog(to) || context.isLeaf(to) || to.is(TreePhysicsTags.STAYS_ON_TREE);
         }
 
-        if(context.isLeaf(from) && context.isLeaf(to)) {
-            int fromDistance = from.getValue(LeavesBlock.DISTANCE);
-            int toDistance = to.getValue(LeavesBlock.DISTANCE);
-            return fromDistance < toDistance;
+        if(context.isLeaf(from)) {
+            if(context.isLeaf(to)) {
+                int fromDistance = from.getValue(LeavesBlock.DISTANCE);
+                int toDistance = to.getValue(LeavesBlock.DISTANCE);
+                return fromDistance < toDistance;
+            } else {
+                return to.is(TreePhysicsTags.STAYS_ON_TREE);
+            }
         }
 
         return false;
