@@ -61,7 +61,7 @@ public class TreePhysicsConfig {
 
         IMPULSE_FORCE = builder
                 .comment("How much force should be applied to trees when chopped down")
-                .defineInRange("impulse_force", 1.0, 0.0, Double.MAX_VALUE);
+                .defineInRange("impulse_force", 1.5, 0.0, Double.MAX_VALUE);
 
         IMPULSE_TORQUE = builder
                 .comment("How much torque should be applied to trees when chopped down")
@@ -69,7 +69,7 @@ public class TreePhysicsConfig {
 
         EXTRA_PUSH_MULTIPLIER = builder
                 .comment("How much extra pushing strength should be applied for upright trees")
-                .defineInRange("extra_push_multiplier", 2.0, 0.0, Double.MAX_VALUE);
+                .defineInRange("extra_push_multiplier", 1.5, 0.0, Double.MAX_VALUE);
 
         builder.pop();
 

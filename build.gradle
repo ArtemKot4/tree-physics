@@ -46,11 +46,13 @@ neoForge {
     runs {
         client {
             client()
+            gameDirectory = project.file('runs/client')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
             server()
+            gameDirectory = project.file('runs/server')
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
