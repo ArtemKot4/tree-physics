@@ -95,7 +95,7 @@ public class CommonEvents {
                     SubLevelPhysicsSystem system = SubLevelPhysicsSystem.get(level);
                     RigidBodyHandle handle = system.getPhysicsHandle(subLevel);
 
-                    Vec3 breakDirection = player.getEyePosition().subtract(pos.getCenter()).normalize();
+                    Vec3 breakDirection = player.getEyePosition().subtract(pos.getCenter()).normalize().multiply(1, 0, 1);
                     Vector3d forward = new Vector3d(JOMLConversion.toJOML(Direction.getNearest(breakDirection).getNormal()));
                     forward.rotateAxis(Math.toRadians(level.getRandom().nextIntBetweenInclusive(-25, 25)), 0, 1, 0);
 
