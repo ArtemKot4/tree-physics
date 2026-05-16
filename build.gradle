@@ -26,6 +26,9 @@ repositories {
     maven {
         url "https://cursemaven.com/"
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
 
 }
 
@@ -103,6 +106,10 @@ dependencies {
     implementation "curse.maven:no-mans-land-538493:7333863"
     implementation "curse.maven:biolith-852512:8045279"
     implementation "curse.maven:mixed-litter-1221222:7240064"
+
+    compileOnly "maven.modrinth:biomes-o-plenty:$biomes_o_plenty_version"
+    compileOnly "maven.modrinth:terrablender:$terra_blender_version"
+    compileOnly "maven.modrinth:glitchcore:$glitch_core_version"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

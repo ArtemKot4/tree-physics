@@ -3,10 +3,12 @@
   "minVersion": "0.8",
   "package": "com.farcr.treephysics.mixin",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "com.farcr.treephysics.TreePhysicsMixinPlugin",
   "mixins": [
     "collision_effects.BeehiveBlockCallbackMixin",
     "collision_effects.BlockWithSubLevelCallbackMixin",
     "collision_effects.LeavesBlockMixin",
+    "compatibility.biomesoplenty.BOPTreeFeatureMixin",
     "entity_damage.LivingEntityMixin",
     "rooted_dirt_placement.TrunkPlacerMixin",
     "tree_pushing.ServerboundPunchSubLevelPacketMixin",
