@@ -47,7 +47,7 @@ public class TreePhysicsConfig {
         PREVENT_BUILDING_ON_TREES = builder
                 .comment("treephysics.config.prevent_building_on_trees.tooltip")
                 .translation("treephysics.config.prevent_building_on_trees")
-                .define("prevent_building_on_trees", true);
+                .define("prevent_building_on_trees", false);
 
         CAN_WALK_THROUGH_LEAVES = builder
                 .comment("treephysics.config.can_walk_through_leaves.tooltip")
