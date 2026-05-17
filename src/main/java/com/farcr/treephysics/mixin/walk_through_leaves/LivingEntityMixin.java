@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity {
     public void move(MoverType type, Vec3 movement) {
         if(!this.noPhysics) {
             BlockState state = this.getInBlockState();
-            this.treephysics$inLeaves |= state.is(BlockTags.LEAVES);
+            this.treephysics$inLeaves = state.is(BlockTags.LEAVES);
             if(this.treephysics$inLeaves) {
                 double value = TreePhysicsConfig.LEAF_WALKING_SPEED.getAsDouble();
                 movement = movement.multiply(value, 1, value);

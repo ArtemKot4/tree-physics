@@ -7,7 +7,9 @@ public class TreePhysicsConfig {
 
     public static final ModConfigSpec.IntValue DESPAWN_TIME;
     public static final ModConfigSpec.EnumValue<DespawnBehavior> DESPAWN_BEHAVIOR;
+    public static final ModConfigSpec.BooleanValue DROP_ITEMS_ON_DESPAWN;
     public static final ModConfigSpec.BooleanValue REQUIRES_AXE;
+    public static final ModConfigSpec.BooleanValue PREVENT_BUILDING_ON_TREES;
     public static final ModConfigSpec.BooleanValue CAN_WALK_THROUGH_LEAVES;
     public static final ModConfigSpec.DoubleValue LEAF_WALKING_SPEED;
     public static final ModConfigSpec.DoubleValue TREE_ENTITY_DAMAGE;
@@ -23,57 +25,75 @@ public class TreePhysicsConfig {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
         DESPAWN_TIME = builder
-                .comment("The amount of time in ticks a tree will exist before despawning")
-                .defineInRange("despawn_time", 144000, 0, Integer.MAX_VALUE);
+                .comment("treephysics.config.despawn_time.tooltip")
+                .translation("treephysics.config.despawn_time")
+                .defineInRange("despawn_time", 144000, -1, Integer.MAX_VALUE);
 
         DESPAWN_BEHAVIOR = builder
-                .comment(
-                        "NO_DESPAWN: Trees will not despawn at all",
-                        "DESPAWN_SMALL: Trees with 5 or less logs will despawn",
-                        "DESPAWN_ALL: Every tree will despawn"
-                )
+                .comment("treephysics.config.despawn_behavior.tooltip")
+                .translation("treephysics.config.despawn_behavior")
                 .defineEnum("despawn_behavior", DespawnBehavior.DESPAWN_SMALL);
 
+        DROP_ITEMS_ON_DESPAWN = builder
+                .comment("treephysics.config.drop_items_on_despawn.tooltip")
+                .translation("treephysics.config.drop_items_on_despawn")
+                .define("drop_items_on_despawn", false);
+
         REQUIRES_AXE = builder
-                .comment("If an axe should be required to make tree sub-levels")
+                .comment("treephysics.config.requires_axe.tooltip")
+                .translation("treephysics.config.requires_axe")
                 .define("requires_axe", false);
 
+        PREVENT_BUILDING_ON_TREES = builder
+                .comment("treephysics.config.prevent_building_on_trees.tooltip")
+                .translation("treephysics.config.prevent_building_on_trees")
+                .define("prevent_building_on_trees", true);
+
         CAN_WALK_THROUGH_LEAVES = builder
-                .comment("If entities should be able to walk through leaves")
+                .comment("treephysics.config.can_walk_through_leaves.tooltip")
+                .translation("treephysics.config.can_walk_through_leaves")
                 .define("can_walk_through_leaves", true);
 
         LEAF_WALKING_SPEED = builder
-                .comment("Multiplier for entity walking speed when in leaves")
+                .comment("treephysics.config.leaf_walking_speed.tooltip")
+                .translation("treephysics.config.leaf_walking_speed")
                 .defineInRange("leaf_walking_speed", 0.67, 0.0, 1.0);
 
         TREE_ENTITY_DAMAGE = builder
-                .comment("How much damage a falling tree should inflict on an entity when moving at 1 block per tick")
+                .comment("treephysics.config.tree_entity_damage.tooltip")
+                .translation("treephysics.config.tree_entity_damage")
                 .defineInRange("tree_entity_damage", 25, 0.0, Double.MAX_VALUE);
 
-        builder.push("physics");
+        builder.translation("treephysics.config.section.physics").push("physics");
 
         GRAVITY_MULTIPLIER = builder
-                .comment("How much extra gravity should be applied to trees")
+                .comment("treephysics.config.physics.gravity_multiplier.tooltip")
+                .translation("treephysics.config.physics.gravity_multiplier")
                 .defineInRange("gravity_multiplier", 1.0, 1.0, Double.MAX_VALUE);
 
         GRAVITY_MULTIPLIER_TICKS = builder
-                .comment("How long in ticks the gravity multiplier should be applied. -1 for infinite")
+                .comment("treephysics.config.physics.gravity_multiplier_ticks.tooltip")
+                .translation("treephysics.config.physics.gravity_multiplier_ticks")
                 .defineInRange("gravity_multiplier_ticks", 400, -1, Integer.MAX_VALUE);
 
         IMPULSE_FORCE = builder
-                .comment("How much force should be applied to trees when chopped down")
+                .comment("treephysics.config.physics.impulse_force.tooltip")
+                .translation("treephysics.config.physics.impulse_force")
                 .defineInRange("impulse_force", 1.5, 0.0, Double.MAX_VALUE);
 
         IMPULSE_TORQUE = builder
-                .comment("How much torque should be applied to trees when chopped down")
+                .comment("treephysics.config.physics.impulse_torque.tooltip")
+                .translation("treephysics.config.physics.impulse_torque")
                 .defineInRange("impulse_torque", 0.3, 0.0, Double.MAX_VALUE);
 
         EXTRA_PUSH_MULTIPLIER = builder
-                .comment("How much extra pushing strength should be applied for upright trees")
+                .comment("treephysics.config.physics.extra_push_multiplier.tooltip")
+                .translation("treephysics.config.physics.extra_push_multiplier")
                 .defineInRange("extra_push_multiplier", 1.5, 0.0, Double.MAX_VALUE);
 
         STATIC_LEAF_COLLISION = builder
-                .comment("If leaves not on sub-levels should have collision")
+                .comment("treephysics.config.physics.static_leaf_collision.tooltip")
+                .translation("treephysics.config.physics.static_leaf_collision")
                 .define("static_leaf_collision", false);
 
         builder.pop();
