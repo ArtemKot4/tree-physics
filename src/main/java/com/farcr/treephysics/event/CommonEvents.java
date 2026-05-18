@@ -118,6 +118,10 @@ public class CommonEvents {
     // will need to just mixin to AlterGroundDecorator when porting to multiloader for this
     @SubscribeEvent
     public static void alterGround(AlterGroundEvent event) {
+        if(!TreePhysicsConfig.ROOTED_DIRT_GENERATION.getAsBoolean()) {
+            return;
+        }
+
         TreeDecorator.Context context = event.getContext();
         LevelSimulatedReader reader = context.level();
 

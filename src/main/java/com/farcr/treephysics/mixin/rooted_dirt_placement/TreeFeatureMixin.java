@@ -1,5 +1,6 @@
 package com.farcr.treephysics.mixin.rooted_dirt_placement;
 
+import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.farcr.treephysics.index.TreePhysicsTags;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -24,6 +25,10 @@ public class TreeFeatureMixin {
 
     @WrapOperation(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/TreeFeature;doPlace(Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/util/RandomSource;Lnet/minecraft/core/BlockPos;Ljava/util/function/BiConsumer;Ljava/util/function/BiConsumer;Lnet/minecraft/world/level/levelgen/feature/foliageplacers/FoliagePlacer$FoliageSetter;Lnet/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration;)Z"))
     private boolean treephysics$doPlace(TreeFeature instance, WorldGenLevel level, RandomSource random, BlockPos pos, BiConsumer<BlockPos, BlockState> rootBlockSetter, BiConsumer<BlockPos, BlockState> trunkBlockSetter, FoliagePlacer.FoliageSetter foliageBlockSetter, TreeConfiguration config, Operation<Boolean> original) {
+        if(!TreePhysicsConfig.ROOTED_DIRT_GENERATION.getAsBoolean()) {
+            return original.call(instance, level, random, pos, rootBlockSetter, rootBlockSetter, foliageBlockSetter, config);
+        }
+
         BiConsumer<BlockPos, BlockState> pawesomeTrunkBlockSetter = (blockPos, state) -> {
             trunkBlockSetter.accept(blockPos, state);
             if(state.is(BlockTags.LOGS) && state.hasProperty(RotatedPillarBlock.AXIS) && state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y) {

@@ -1,5 +1,6 @@
 package com.farcr.treephysics.mixin.rooted_dirt_placement;
 
+import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.core.BlockPos;
@@ -19,6 +20,11 @@ public class TrunkPlacerMixin {
 
     @WrapMethod(method = "setDirtAt")
     private static void treephysics$setDirtAt(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Operation<Void> original) {
+        if(!TreePhysicsConfig.ROOTED_DIRT_GENERATION.getAsBoolean()) {
+            original.call(level, blockSetter, random, pos, config);
+            return;
+        }
+
         LevelReader reader = (LevelReader) level;
         BlockState state = reader.getBlockState(pos);
         if(!state.onTreeGrow(reader, blockSetter, random, pos, config) && !state.is(Blocks.ROOTED_DIRT)) {

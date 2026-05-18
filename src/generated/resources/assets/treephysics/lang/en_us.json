@@ -27,6 +27,8 @@
   "treephysics.config.prevent_interacting_with_trees.tooltip": "If interacting with trees (block placement, item use, etc) should be prevented",
   "treephysics.config.requires_axe": "Requires Axe",
   "treephysics.config.requires_axe.tooltip": "If an axe should be required to make tree sub-levels",
+  "treephysics.config.rooted_dirt_generation": "Rooted Dirt Generation",
+  "treephysics.config.rooted_dirt_generation.tooltip": "If rooted dirt should generate under trees",
   "treephysics.config.rootless_tree_detection": "Rootless Tree Detection",
   "treephysics.config.rootless_tree_detection.tooltip": "Allow tree sub-levels to be created without a root block, requiring at least one dirt and one natural leaf instead",
   "treephysics.config.section.physics": "Physics",
