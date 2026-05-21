@@ -8,6 +8,7 @@
     "collision_effects.BeehiveBlockCallbackMixin",
     "collision_effects.BlockWithSubLevelCallbackMixin",
     "collision_effects.LeavesBlockMixin",
+    "compatibility.blueprint.BlueprintTreeFeatureMixin",
     "entity_damage.LivingEntityMixin",
     "rooted_dirt_placement.TreeFeatureMixin",
     "rooted_dirt_placement.TrunkPlacerMixin",

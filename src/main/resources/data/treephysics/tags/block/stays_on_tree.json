@@ -2,15 +2,17 @@
   "values": [
     "minecraft:vine",
     "minecraft:mangrove_propagule",
-    "minecraft:flowering_azalea_leaves",
+    "#treephysics:extra_leaves",
     { "id": "nomansland:tap", "required": false },
     { "id": "nomansland:beard_moss", "required": false },
     { "id": "nomansland:shelf_mushroom_block", "required": false },
     { "id": "nomansland:shelf_mushroom", "required": false },
-    { "id": "nomansland:apple_fruit_leaves", "required": false },
-    { "id": "nomansland:pear_fruit_leaves", "required": false },
-    { "id": "biomesoplenty:flowering_oak_leaves", "required": false },
     { "id": "biomesoplenty:spanish_moss_plant", "required": false },
-    { "id": "biomesoplenty:willow_vine", "required": false }
+    { "id": "biomesoplenty:willow_vine", "required": false },
+    { "id": "environmental:white_hanging_wisteria_leaves", "required": false },
+    { "id": "environmental:pink_hanging_wisteria_leaves", "required": false },
+    { "id": "environmental:blue_hanging_wisteria_leaves", "required": false },
+    { "id": "environmental:purple_hanging_wisteria_leaves", "required": false },
+    { "id": "upgrade_aquatic:mulberry_vine", "required": false }
   ]
 }
