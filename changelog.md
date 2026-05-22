@@ -1,2 +1,3 @@
-- Add a config for allowing trees to fall without rooted dirt
-- Add a config to disable rooted dirt placement
+- Add compatibility for the Abnormals mods
+- Add compatibility for Spawn
+- Fix non-living entities being able to move through leaves
