@@ -10,6 +10,7 @@ public class TreePhysicsConfig {
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.IntValue DESPAWN_TIME;
+    public static final ModConfigSpec.IntValue SMALL_TREE_MAXIMUM;
     public static final ModConfigSpec.EnumValue<DespawnBehavior> DESPAWN_BEHAVIOR;
     public static final ModConfigSpec.BooleanValue DROP_ITEMS_ON_DESPAWN;
     public static final ModConfigSpec.BooleanValue ROOTED_DIRT_GENERATION;
@@ -34,9 +35,12 @@ public class TreePhysicsConfig {
         DESPAWN_TIME = create(builder, "Despawn Time", "The amount of time in ticks a tree will exist before despawning. -1 to despawn when the tree stops moving")
                 .defineInRange("despawn_time", 144000, -1, Integer.MAX_VALUE);
 
+        SMALL_TREE_MAXIMUM = create(builder, "Small Tree Maximum", "The largest amount of logs a tree can have before it is considered \"small\"\n(see DESPAWN_BEHAVIOR)")
+                .defineInRange("small_tree_maximum", 5, 1, Integer.MAX_VALUE);
+
         DESPAWN_BEHAVIOR = create(builder, "Despawn Behavior", """
                 NO_DESPAWN: Trees will not despawn at all
-                DESPAWN_SMALL: Trees with 5 or less logs will despawn
+                DESPAWN_SMALL: Trees with an amount of logs less than or equal to the value of SMALL_TREE_MAXIMUM will despawn
                 DESPAWN_ALL: Every tree will despawn
                 """)
                 .defineEnum("despawn_behavior", DespawnBehavior.DESPAWN_SMALL);

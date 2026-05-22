@@ -268,6 +268,6 @@ public class ServerTreeManager extends SavedData implements TreeManager {
             return true;
         }
 
-        return data.logs <= 5;
+        return data.logs <= TreePhysicsConfig.SMALL_TREE_MAXIMUM.get();
     }
 }
