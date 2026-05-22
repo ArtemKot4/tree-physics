@@ -31,7 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.phys.Vec3;
@@ -84,7 +83,7 @@ public class CommonEvents {
                     level.setBlock(belowPos, Blocks.DIRT.defaultBlockState(), 2);
                 }
 
-                if(!(brokenState.getBlock() instanceof RotatedPillarBlock) || brokenState.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) return;
+                if(TreeUtil.getLogAxis(brokenState) != Direction.Axis.Y) return;
 
                 for (ServerSubLevel subLevel : subLevels) {
                     SubLevelPhysicsSystem system = SubLevelPhysicsSystem.get(level);

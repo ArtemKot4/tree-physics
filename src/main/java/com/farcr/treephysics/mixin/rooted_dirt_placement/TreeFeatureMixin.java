@@ -1,5 +1,6 @@
 package com.farcr.treephysics.mixin.rooted_dirt_placement;
 
+import com.farcr.treephysics.api.TreeUtil;
 import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.farcr.treephysics.index.TreePhysicsTags;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -10,7 +11,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -31,7 +31,7 @@ public class TreeFeatureMixin {
 
         BiConsumer<BlockPos, BlockState> pawesomeTrunkBlockSetter = (blockPos, state) -> {
             trunkBlockSetter.accept(blockPos, state);
-            if(state.is(BlockTags.LOGS) && state.hasProperty(RotatedPillarBlock.AXIS) && state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y) {
+            if(state.is(BlockTags.LOGS) && TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
                 if (level.getBlockState(blockPos.below()).is(TreePhysicsTags.CAN_BE_ROOTS)) {
                     level.setBlock(blockPos.below(), Blocks.ROOTED_DIRT.defaultBlockState(), 19);
                 }

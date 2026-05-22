@@ -12,11 +12,16 @@ import dev.ryanhcode.sable.companion.math.BoundingBox3ic;
 import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 
@@ -131,7 +136,20 @@ public class TreeUtil {
     }
 
     public static boolean logRule(BlockPos fromPos, BlockPos toPos, BlockState fromState, BlockState toState, TreeResult result) {
-        return result.isLog(fromState) && result.isLog(toState);
+        if(result.isLog(fromState) && result.isLog(toState)) {
+            if(fromState.getBlock() == toState.getBlock()) {
+                return true;
+            } else {
+                BlockPos relative = toPos.subtract(fromPos);
+                Direction direction = Direction.getNearest(relative.getX(), relative.getY(), relative.getZ());
+
+                Direction.Axis fromAxis = getLogAxis(fromState);
+                Direction.Axis toAxis = getLogAxis(toState);
+                return fromAxis == direction.getAxis() && toAxis == direction.getAxis();
+            }
+        }
+
+        return false;
     }
 
     public static boolean leafRule(BlockPos fromPos, BlockPos toPos, BlockState fromState, BlockState toState, TreeResult result) {
@@ -160,6 +178,27 @@ public class TreeUtil {
 
     public static boolean isRoot(BlockState state) {
         return state.is(TreePhysicsTags.ROOTS);
+    }
+
+    public static @Nullable Direction.Axis getLogAxis(BlockState logBlock) {
+        if(logBlock.is(BlockTags.LOGS)) {
+            if(logBlock.hasProperty(BlockStateProperties.AXIS)) {
+                return logBlock.getValue(BlockStateProperties.AXIS);
+            }
+
+            if(logBlock.getBlock() instanceof HugeMushroomBlock) {
+                if(!logBlock.getValue(HugeMushroomBlock.UP) && !logBlock.getValue(HugeMushroomBlock.DOWN)) {
+                    return Direction.Axis.Y;
+                } else if (!logBlock.getValue(HugeMushroomBlock.EAST) && !logBlock.getValue(HugeMushroomBlock.WEST)) {
+                    return Direction.Axis.X;
+                } else if (!logBlock.getValue(HugeMushroomBlock.NORTH) && !logBlock.getValue(HugeMushroomBlock.SOUTH)) {
+                    return Direction.Axis.Z;
+                }
+            }
+        }
+
+
+        return null;
     }
 
 }

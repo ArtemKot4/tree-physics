@@ -16,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
@@ -96,9 +95,9 @@ public class TreeData {
             int verticalLogs = 0;
             for (BlockPos pos : TreeUtil.plotIterator(subLevel)) {
                 BlockState state = level.getBlockState(pos);
-                if(state.is(BlockTags.LOGS) && state.getBlock() instanceof RotatedPillarBlock) {
+                if(state.is(BlockTags.LOGS)) {
                     logs++;
-                    if(state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y) {
+                    if(TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
                         verticalLogs++;
                     } else {
                         horizontalLogs++;
