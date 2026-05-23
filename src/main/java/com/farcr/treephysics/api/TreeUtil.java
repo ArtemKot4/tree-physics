@@ -120,7 +120,10 @@ public class TreeUtil {
 
                 Set<BlockPos> fallingBlocks = tree.getBlocks(TreePhysicsTags.FALLS_FROM_TREES);
                 for (BlockPos blockPos : fallingBlocks) {
-                    SubLevelAssemblyHelper.assembleBlocks(level, blockPos, List.of(blockPos), new BoundingBox3i(blockPos, blockPos));
+                    BlockState state = level.getBlockState(blockPos);
+                    if (PhysicsBlockPropertyHelper.getMass(level, pos, state) > 0.0) {
+                        SubLevelAssemblyHelper.assembleBlocks(level, blockPos, List.of(blockPos), new BoundingBox3i(blockPos, blockPos));
+                    }
                 }
 
                 for (BlockPos blockPos : tree.getBlocks()) {
