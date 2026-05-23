@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -95,14 +94,14 @@ public class TreeData {
             int verticalLogs = 0;
             for (BlockPos pos : TreeUtil.plotIterator(subLevel)) {
                 BlockState state = level.getBlockState(pos);
-                if(state.is(BlockTags.LOGS)) {
+                if(TreeUtil.isLog(state)) {
                     logs++;
                     if(TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
                         verticalLogs++;
                     } else {
                         horizontalLogs++;
                     }
-                } else if(state.is(BlockTags.LEAVES)) {
+                } else if(TreeUtil.isLeaf(state)) {
                     this.hasLeaves = true;
                 }
             }

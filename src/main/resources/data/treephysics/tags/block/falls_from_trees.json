@@ -3,6 +3,8 @@
     "minecraft:bee_nest",
     "minecraft:cocoa",
     { "id": "nomansland:apple", "required": false },
-    { "id": "nomansland:pear", "required": false }
+    { "id": "nomansland:pear", "required": false },
+    { "id": "bountifulfares:coconut", "required": false },
+    { "id": "#bountifulfares:hanging_fruit", "required": false }
   ]
 }

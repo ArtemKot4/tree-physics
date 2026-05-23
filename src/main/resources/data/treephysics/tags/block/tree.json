@@ -1,7 +1,7 @@
 {
   "values": [
-    "#minecraft:leaves",
-    "#minecraft:logs",
+    "#treephysics:leaves",
+    "#treephysics:logs",
     "#treephysics:stays_on_tree"
   ]
 }

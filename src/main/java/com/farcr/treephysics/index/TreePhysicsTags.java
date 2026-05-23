@@ -13,6 +13,8 @@ public class TreePhysicsTags {
     public static final TagKey<Block> ROOTS = create("roots");
     public static final TagKey<Block> CAN_BE_ROOTS = create("can_be_roots");
     public static final TagKey<Block> TREE = create("tree");
+    public static final TagKey<Block> LOGS = create("logs");
+    public static final TagKey<Block> LEAVES = create("leaves");
 
     private static TagKey<Block> create(String id) {
         return TagKey.create(Registries.BLOCK, path(id));

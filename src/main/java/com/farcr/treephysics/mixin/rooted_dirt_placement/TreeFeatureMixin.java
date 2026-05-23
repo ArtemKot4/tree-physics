@@ -7,7 +7,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
@@ -31,7 +30,7 @@ public class TreeFeatureMixin {
 
         BiConsumer<BlockPos, BlockState> pawesomeTrunkBlockSetter = (blockPos, state) -> {
             trunkBlockSetter.accept(blockPos, state);
-            if(state.is(BlockTags.LOGS) && TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
+            if(TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
                 if (level.getBlockState(blockPos.below()).is(TreePhysicsTags.CAN_BE_ROOTS)) {
                     level.setBlock(blockPos.below(), Blocks.ROOTED_DIRT.defaultBlockState(), 19);
                 }

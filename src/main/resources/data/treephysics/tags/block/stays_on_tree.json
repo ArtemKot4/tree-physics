@@ -15,6 +15,7 @@
     { "id": "environmental:purple_hanging_wisteria_leaves", "required": false },
     { "id": "upgrade_aquatic:mulberry_vine", "required": false },
     { "id": "spawn:dangling_date_leaves", "required": false },
-    { "id": "spawn:date_bunch", "required": false }
+    { "id": "spawn:date_bunch", "required": false },
+    { "id": "bountifulfares:wall_palm_frond", "required": false }
   ]
 }

@@ -24,7 +24,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +62,7 @@ public class CommonEvents {
         BlockState brokenState = level.getBlockState(pos);
         ServerTreeManager manager = (ServerTreeManager) TreeManager.get(level);
 
-        if(brokenState.is(BlockTags.LOGS)) {
+        if(TreeUtil.isLog(brokenState)) {
             if(manager.isTree(pos)) {
                 SubLevel tree = manager.getTree(pos);
                 manager.decrementLogs(tree);

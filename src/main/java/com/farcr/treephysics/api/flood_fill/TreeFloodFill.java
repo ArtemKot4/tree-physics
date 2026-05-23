@@ -3,7 +3,6 @@ package com.farcr.treephysics.api.flood_fill;
 import com.farcr.treephysics.api.TreeUtil;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -32,11 +31,11 @@ public class TreeFloodFill {
     }
 
     public TreeResult findBlocks(BlockGetter blockGetter, BlockPos start) {
-        if(!blockGetter.getBlockState(start).is(BlockTags.LOGS)) {
+        if(!TreeUtil.isLog(blockGetter.getBlockState(start))) {
             return null;
         }
 
-        TreeResult result = new TreeResult(this.tags);
+        TreeResult result = new TreeResult(this.tags, start);
         Queue<BlockPos> queue = new LinkedList<>();
         Set<Long> visited = new LongOpenHashSet();
 

@@ -9,6 +9,11 @@
     { "id": "environmental:pink_wisteria_leaves", "required": false },
     { "id": "environmental:blue_wisteria_leaves", "required": false },
     { "id": "environmental:purple_wisteria_leaves", "required": false },
-    { "id": "atmospheric:flowering_morado_leaves", "required": false }
+    { "id": "atmospheric:flowering_morado_leaves", "required": false },
+    { "id": "bountifulfares:flowering_golden_apple_leaves", "required": false },
+    { "id": "bountifulfares:flowering_apple_leaves", "required": false },
+    { "id": "bountifulfares:flowering_orange_leaves", "required": false },
+    { "id": "bountifulfares:flowering_lemon_leaves", "required": false },
+    { "id": "bountifulfares:flowering_plum_leaves", "required": false }
   ]
 }

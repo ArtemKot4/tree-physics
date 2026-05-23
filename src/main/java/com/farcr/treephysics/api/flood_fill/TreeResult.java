@@ -1,5 +1,6 @@
 package com.farcr.treephysics.api.flood_fill;
 
+import com.farcr.treephysics.api.TreeUtil;
 import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.farcr.treephysics.index.TreePhysicsTags;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -9,7 +10,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Collection;
@@ -18,14 +18,16 @@ import java.util.Set;
 
 public class TreeResult {
     private final Map<TagKey<Block>, Set<BlockPos>> collectedBlocks = new Object2ObjectOpenHashMap<>();
+    private final BlockPos start;
     private final Set<BlockPos> allBlocks = new ObjectOpenHashSet<>();
     private boolean root = false;
     private boolean leaves = false;
 
-    public TreeResult(Collection<TagKey<Block>> tags) {
+    public TreeResult(Collection<TagKey<Block>> tags, BlockPos start) {
         for (TagKey<Block> tag : tags) {
             collectedBlocks.put(tag, new ObjectOpenHashSet<>());
         }
+        this.start = start;
     }
 
     public void add(BlockPos pos, BlockState state) {
@@ -39,12 +41,12 @@ public class TreeResult {
     }
 
     public void afterSpread(BlockGetter blockGetter, BlockPos pos, BlockState state) {
-        if(!this.root && state.is(BlockTags.LOGS)) {
+        if(!this.root && TreeUtil.isLog(state)) {
             BlockState belowState = blockGetter.getBlockState(pos.below());
             this.root = TreePhysicsConfig.ROOTLESS_TREE_DETECTION.getAsBoolean() ? belowState.is(BlockTags.DIRT) : belowState.is(TreePhysicsTags.ROOTS);
         }
-        if(!this.leaves && state.getBlock() instanceof LeavesBlock) {
-            this.leaves = !state.getValue(LeavesBlock.PERSISTENT);
+        if(!this.leaves && TreeUtil.isLeaf(state)) {
+            this.leaves = !TreeUtil.isLeafPersistent(state);
         }
     }
 
@@ -64,11 +66,7 @@ public class TreeResult {
         return leaves;
     }
 
-    public boolean isLeaf(BlockState state) {
-        return state.is(BlockTags.LEAVES) && state.getBlock() instanceof LeavesBlock;
-    }
-
-    public boolean isLog(BlockState state) {
-        return state.is(BlockTags.LOGS);
+    public BlockPos getStart() {
+        return start;
     }
 }

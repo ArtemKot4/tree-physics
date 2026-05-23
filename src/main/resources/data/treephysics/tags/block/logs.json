@@ -1,0 +1,6 @@
+{
+  "values": [
+    "#minecraft:logs",
+    { "id": "bountifulfares:palm_crown", "required": false }
+  ]
+}

@@ -1,5 +1,6 @@
 package com.farcr.treephysics.mixin.entity_damage;
 
+import com.farcr.treephysics.api.TreeUtil;
 import com.farcr.treephysics.client.TreeManager;
 import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.farcr.treephysics.mixinterface.LivingEntityExtension;
@@ -7,7 +8,6 @@ import dev.ryanhcode.sable.Sable;
 import dev.ryanhcode.sable.companion.math.BoundingBox3d;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,7 +51,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityEx
                     BlockPos blockPos = BlockPos.containing(localEyePos);
 
                     BlockState state = level.getBlockState(blockPos);
-                    if(state.is(BlockTags.LOGS)) {
+                    if(TreeUtil.isLog(state)) {
                         this.treephysics$damageCooldown += LivingEntityExtension.doDamageAndKnockback(subLevel, blockPos, (LivingEntity) (Object) this);
                     }
 

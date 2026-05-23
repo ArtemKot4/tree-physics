@@ -1,5 +1,6 @@
 package com.farcr.treephysics.collision_callback;
 
+import com.farcr.treephysics.api.TreeUtil;
 import com.farcr.treephysics.api.manager.ServerTreeManager;
 import com.farcr.treephysics.api.manager.TreeData;
 import com.farcr.treephysics.client.TreeManager;
@@ -7,7 +8,6 @@ import dev.ryanhcode.sable.physics.callback.FragileBlockCallback;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
@@ -35,7 +35,7 @@ public class LogCallback extends FragileBlockCallback {
 
     @Override
     public boolean shouldTriggerFor(BlockState state) {
-        return state.is(BlockTags.LOGS);
+        return TreeUtil.isLog(state);
     }
 
     @Override
