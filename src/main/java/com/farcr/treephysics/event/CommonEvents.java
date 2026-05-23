@@ -1,6 +1,7 @@
 package com.farcr.treephysics.event;
 
 import com.farcr.treephysics.TreePhysics;
+import com.farcr.treephysics.api.LeafGroupManager;
 import com.farcr.treephysics.api.TreeUtil;
 import com.farcr.treephysics.api.manager.ServerTreeManager;
 import com.farcr.treephysics.api.manager.TreeSubLevelObserver;
@@ -18,6 +19,7 @@ import dev.ryanhcode.sable.companion.math.JOMLConversion;
 import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import dev.ryanhcode.sable.sublevel.system.SubLevelPhysicsSystem;
+import foundry.veil.api.CodecReloadListener;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
@@ -36,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
@@ -151,6 +154,11 @@ public class CommonEvents {
         CommandBuildContext context = event.getBuildContext();
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
         TreePhysicsCommands.registerCommands(context, dispatcher);
+    }
+
+    @SubscribeEvent
+    public static void addReloadListener(AddReloadListenerEvent event) {
+        event.addListener(LeafGroupManager.INSTANCE);
     }
 
     @EventBusSubscriber(modid = TreePhysics.MOD_ID)

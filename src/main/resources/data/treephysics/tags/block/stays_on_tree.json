@@ -2,7 +2,6 @@
   "values": [
     "minecraft:vine",
     "minecraft:mangrove_propagule",
-    "#treephysics:extra_leaves",
     { "id": "nomansland:tap", "required": false },
     { "id": "nomansland:beard_moss", "required": false },
     { "id": "nomansland:shelf_mushroom_block", "required": false },
@@ -13,9 +12,11 @@
     { "id": "environmental:pink_hanging_wisteria_leaves", "required": false },
     { "id": "environmental:blue_hanging_wisteria_leaves", "required": false },
     { "id": "environmental:purple_hanging_wisteria_leaves", "required": false },
+    { "id": "environmental:hanging_willow_leaves", "required": false },
     { "id": "upgrade_aquatic:mulberry_vine", "required": false },
     { "id": "spawn:dangling_date_leaves", "required": false },
     { "id": "spawn:date_bunch", "required": false },
-    { "id": "bountifulfares:wall_palm_frond", "required": false }
+    { "id": "bountifulfares:wall_palm_frond", "required": false },
+    { "id": "#burnt:wood_fire", "required": false }
   ]
 }

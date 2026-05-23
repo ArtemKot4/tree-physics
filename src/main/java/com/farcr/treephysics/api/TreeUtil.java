@@ -9,12 +9,14 @@ import com.farcr.treephysics.index.TreePhysicsTags;
 import dev.ryanhcode.sable.api.SubLevelAssemblyHelper;
 import dev.ryanhcode.sable.companion.math.BoundingBox3i;
 import dev.ryanhcode.sable.companion.math.BoundingBox3ic;
+import dev.ryanhcode.sable.physics.config.block_properties.PhysicsBlockPropertyHelper;
 import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -159,9 +161,9 @@ public class TreeUtil {
         }
 
         if(isLeaf(fromState) && isLeaf(toState)) {
-            if(fromState.getBlock() == toState.getBlock()) {
+            if(isSameLeafType(fromState, toState)) {
                 int fromDistance = getLeafDistance(fromState, fromPos, result);
-                int toDistance = getLeafDistance(fromState, fromPos, result);
+                int toDistance = getLeafDistance(toState, toPos, result);
                 return toDistance > fromDistance;
             }
         }
@@ -187,6 +189,21 @@ public class TreeUtil {
 
     public static boolean isLeaf(BlockState state) {
         return state.is(TreePhysicsTags.LEAVES);
+    }
+
+    public static boolean isSameLeafType(BlockState first, BlockState second) {
+        Block firstBlock = first.getBlock();
+        Block secondBlock = second.getBlock();
+        if(firstBlock == secondBlock) {
+            return true;
+        }
+
+        Set<Block> group = LeafGroupManager.GROUPS.get(firstBlock);
+        if(group != null) {
+            return group.contains(secondBlock);
+        }
+
+        return false;
     }
 
     public static boolean isLeafPersistent(BlockState state) {
