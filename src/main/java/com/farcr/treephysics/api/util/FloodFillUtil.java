@@ -92,7 +92,7 @@ public class FloodFillUtil {
 
             TreeResult tree = floodFill.findBlocks(level, start);
 
-            if(tree != null && !(TreePhysicsConfig.ROOTLESS_TREE_DETECTION.get() ? tree.hasRoot() || tree.hasDirt() : tree.hasLeaves())) {
+            if(tree != null && !(TreePhysicsConfig.ROOTLESS_TREE_DETECTION.get() ? tree.hasRoot() || tree.hasDirt() : tree.hasRoot())) {
                 Set<BlockPos> treeBlocks = tree.getBlocks(TreePhysicsTags.TREE);
                 ServerSubLevel subLevel = SubLevelAssemblyHelper.assembleBlocks(level, pos, treeBlocks, new BoundingBox3i(pos, pos));
                 subLevels.add(subLevel);
