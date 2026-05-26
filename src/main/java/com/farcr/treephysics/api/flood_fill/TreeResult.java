@@ -21,6 +21,7 @@ public class TreeResult {
     private final BlockPos start;
     private final Set<BlockPos> allBlocks = new ObjectOpenHashSet<>();
     private boolean root = false;
+    private boolean dirt = false;
     private boolean leaves = false;
 
     public TreeResult(Collection<TagKey<Block>> tags, BlockPos start) {
@@ -43,10 +44,14 @@ public class TreeResult {
     public void afterSpread(BlockGetter blockGetter, BlockPos pos, BlockState state) {
         if(!this.root && TreeUtil.isLog(state)) {
             BlockState belowState = blockGetter.getBlockState(pos.below());
-            this.root = TreePhysicsConfig.ROOTLESS_TREE_DETECTION.getAsBoolean() ? belowState.is(BlockTags.DIRT) : belowState.is(TreePhysicsTags.ROOTS);
+            this.root = belowState.is(TreePhysicsTags.ROOTS);
         }
         if(!this.leaves && TreeUtil.isLeaf(state)) {
             this.leaves = !TreeUtil.isLeafPersistent(state);
+        }
+        if(!this.dirt && state.is(BlockTags.DIRT)) {
+            BlockState belowState = blockGetter.getBlockState(pos.below());
+            this.dirt = belowState.is(BlockTags.DIRT);
         }
     }
 
@@ -60,6 +65,10 @@ public class TreeResult {
 
     public boolean hasRoot() {
         return root;
+    }
+
+    public boolean hasDirt() {
+        return dirt;
     }
 
     public boolean hasLeaves() {

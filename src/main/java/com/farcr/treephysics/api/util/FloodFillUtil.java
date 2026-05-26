@@ -71,11 +71,10 @@ public class FloodFillUtil {
     public static boolean isValidTree(BlockGetter blockGetter, BlockPos pos) {
         boolean rootless = TreePhysicsConfig.ROOTLESS_TREE_DETECTION.getAsBoolean();
         TreeResult tree = (rootless ? ROOTLESS_TREE_VALIDATOR : TREE_VALIDATOR).findBlocks(blockGetter, pos);
-        boolean isTree = tree != null && tree.hasRoot();
-        if(isTree && rootless) {
-            isTree = tree.hasLeaves();
+        if(tree != null) {
+            return tree.hasRoot() || (rootless && tree.hasLeaves() && tree.hasDirt());
         }
-        return isTree;
+        return false;
     }
 
     public static List<ServerSubLevel> trySplit(ServerLevel level, BlockPos pos) {
