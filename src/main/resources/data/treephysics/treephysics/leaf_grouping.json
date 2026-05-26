@@ -32,6 +32,32 @@
       "burnt:smoldering_leaves_3",
       "burnt:smoldering_leaves_4",
       "burnt:smoldering_leaves_5"
-    ]
+    ],
+
+    [
+      "biomeswevegone:baobab_leaves",
+      "biomeswevegone:ripe_baobab_leaves",
+      "biomeswevegone:flowering_baobab_leaves"
+    ],
+    [
+      "biomeswevegone:orchard_leaves",
+      "biomeswevegone:ripe_orchard_leaves",
+      "biomeswevegone:flowering_orchard_leaves"
+    ],
+    [
+      "biomeswevegone:yucca_leaves",
+      "biomeswevegone:ripe_yucca_leaves",
+      "biomeswevegone:flowering_yucca_leaves"
+    ],
+    [
+      "biomeswevegone:skyris_leaves",
+      "biomeswevegone:green_apple_skyris_leaves",
+      "biomeswevegone:flowering_skyris_leaves"
+    ],
+    ["biomeswevegone:ironwood_leaves", "biomeswevegone:flowering_ironwood_leaves"],
+    ["biomeswevegone:spirit_leaves", "biomeswevegone:flowering_spirit_leaves"],
+    ["biomeswevegone:indigo_jacaranda_leaves", "biomeswevegone:flowering_indigo_jacaranda_leaves"],
+    ["biomeswevegone:jacaranda_leaves", "biomeswevegone:flowering_jacaranda_leaves"],
+    ["biomeswevegone:palo_verde_leaves", "biomeswevegone:flowering_palo_verde_leaves"]
   ]
 }
