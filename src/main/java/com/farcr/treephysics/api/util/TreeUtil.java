@@ -8,6 +8,7 @@ import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -51,7 +52,7 @@ public class TreeUtil {
     }
 
     public static boolean canBeRoots(LevelSimulatedReader level, BlockPos pos) {
-        return level.isStateAtPosition(pos.below(), TreeUtil::canBeRoots);
+        return level.isStateAtPosition(pos, TreeUtil::canBeRoots);
     }
 
     public static boolean isSameLeafType(BlockState first, BlockState second) {
@@ -127,4 +128,12 @@ public class TreeUtil {
         return getDefaultRoot();
     }
 
+    public static void setDirtUnder(WorldGenLevel level, BlockPos blockPos, BlockState state) {
+        BlockPos below = blockPos.below();
+
+        if(getLogAxis(state) == Direction.Axis.Y && canBeRoots(level, below)) {
+            BlockState belowState = level.getBlockState(below);
+            level.setBlock(below, getRootForState(belowState), 19);
+        }
+    }
 }

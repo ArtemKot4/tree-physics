@@ -19,14 +19,12 @@ public class TrunkPlacerMixin {
 
     @WrapMethod(method = "setDirtAt")
     private static void treephysics$setDirtAt(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter, RandomSource random, BlockPos pos, TreeConfiguration config, Operation<Void> original) {
-        if(!TreePhysicsConfig.ROOTED_DIRT_GENERATION.getAsBoolean()) {
-            original.call(level, blockSetter, random, pos, config);
+        if(TreePhysicsConfig.ROOTED_DIRT_GENERATION.getAsBoolean()) {
+            blockSetter.accept(pos, TreeUtil.getDefaultRoot());
             return;
         }
 
-        if(TreeUtil.canBeRoots(level, pos)) {
-            blockSetter.accept(pos, TreeUtil.getDefaultRoot());
-        }
+        original.call(level, blockSetter, random, pos, config);
     }
 
 }

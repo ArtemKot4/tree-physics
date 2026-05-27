@@ -5,7 +5,6 @@ import com.farcr.treephysics.index.TreePhysicsConfig;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,9 +26,7 @@ public class TreeFeatureMixin {
 
             trunkBlockSetter = (blockPos, state) -> {
                 originalTrunkBlockSetter.accept(blockPos, state);
-                if(TreeUtil.getLogAxis(state) == Direction.Axis.Y && TreeUtil.canBeRoots(level, blockPos.below())) {
-                    level.setBlock(blockPos.below(), TreeUtil.getRootForState(level.getBlockState(blockPos.below())), 19);
-                }
+                TreeUtil.setDirtUnder(level, blockPos, state);
             };
         }
 
