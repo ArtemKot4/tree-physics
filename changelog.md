@@ -1,2 +1,1 @@
-- Fix incorrect root placement
-- Add config for spawning Hanging Roots when Rooted Dirt is removed
+- Fix server crash that occurs when Lithium is installed
