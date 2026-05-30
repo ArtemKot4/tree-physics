@@ -10,6 +10,8 @@
     "collision_effects.BlockWithSubLevelCallbackMixin",
     "collision_effects.LeavesBlockMixin",
     "compatibility.blueprint.BlueprintTreeFeatureMixin",
+    "compatibility.malum.LodestoneBlockFillerLayerMixin",
+    "compatibility.malum.SoulwoodTreeFeatureMixin",
     "compatibility.spawn.DateTreeFeatureMixin",
     "entity_damage.LivingEntityMixin",
     "leaf_collision.RapierPhysicsPipelineMixin",

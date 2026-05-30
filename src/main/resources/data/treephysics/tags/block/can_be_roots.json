@@ -2,6 +2,7 @@
   "values": [
     "#minecraft:dirt",
     "minecraft:mud",
-    "#c:sands"
+    "#c:sands",
+    { "id": "malum:blighted_earth", "required": false }
   ]
 }

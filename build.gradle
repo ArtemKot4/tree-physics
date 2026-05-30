@@ -108,6 +108,8 @@ dependencies {
     implementation "curse.maven:mixed-litter-1221222:7240064"
     implementation "maven.modrinth:blueprint:8.1.0"
     implementation "maven.modrinth:spawn-mod:4.0.4"
+    compileOnly "maven.modrinth:malum:1.8.2"
+    compileOnly "maven.modrinth:lodestonelib:1.8.2"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

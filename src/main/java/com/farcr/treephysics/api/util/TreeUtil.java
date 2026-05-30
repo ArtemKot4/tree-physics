@@ -120,6 +120,8 @@ public class TreeUtil {
                     return Direction.Axis.Z;
                 }
             }
+
+            return Direction.Axis.Y;
         }
 
         return null;

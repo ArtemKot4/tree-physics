@@ -17,6 +17,9 @@
     { "id": "spawn:dangling_date_leaves", "required": false },
     { "id": "spawn:date_bunch", "required": false },
     { "id": "bountifulfares:wall_palm_frond", "required": false },
-    { "id": "#burnt:wood_fire", "required": false }
+    { "id": "#burnt:wood_fire", "required": false },
+    { "id": "malum:hanging_soulwood_leaves", "required": false },
+    { "id": "malum:hanging_azure_runewood_leaves", "required": false },
+    { "id": "malum:hanging_runewood_leaves", "required": false }
   ]
 }

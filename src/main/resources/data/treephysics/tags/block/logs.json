@@ -1,6 +1,8 @@
 {
   "values": [
     "#minecraft:logs",
-    { "id": "bountifulfares:palm_crown", "required": false }
+    { "id": "bountifulfares:palm_crown", "required": false },
+    { "id": "malum:runewood_log", "required": false },
+    { "id": "malum:exposed_runewood_log", "required": false }
   ]
 }
