@@ -1,2 +1,1 @@
-## Tree Physics is now available for Fabric!
-- Fabric versions will be published alongside NeoForge versions
+- Update to Sable 2.0.0
