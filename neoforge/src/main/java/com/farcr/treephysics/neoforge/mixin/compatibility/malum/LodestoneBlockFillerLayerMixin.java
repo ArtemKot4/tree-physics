@@ -18,14 +18,12 @@ public class LodestoneBlockFillerLayerMixin {
     @WrapOperation(method = "lambda$fill$2", at = @At(value = "INVOKE", target = "Lteam/lodestar/lodestone/systems/worldgen/LodestoneBlockFiller$BlockStateEntry;place(Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;)V"))
     private static void treephysics$fill(LodestoneBlockFiller.BlockStateEntry instance, LevelAccessor level, BlockPos pos, Operation<Void> original) {
         original.call(instance, level, pos);
-        if(TreeUtil.getLogAxis(instance.getState()) == Direction.Axis.Y) {
+        //if(TreeUtil.getLogAxis(instance.getState()) == Direction.Axis.Y) {
             BlockPos below = pos.below();
             if(TreeUtil.canBeRoots(level, below)) {
                 BlockState rootState = TreeUtil.getRootForState(level.getBlockState(below));
                 level.setBlock(below, rootState, 19);
             }
-        }
+        //}
     }
-
-
 }

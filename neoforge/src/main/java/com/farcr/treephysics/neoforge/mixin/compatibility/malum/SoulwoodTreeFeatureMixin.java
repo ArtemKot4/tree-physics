@@ -25,7 +25,7 @@ public class SoulwoodTreeFeatureMixin {
             BlockState entryState = entry.blockState();
             BlockPos entryPos = entry.position();
             BlockPos belowPos = entryPos.below();
-            if(TreeUtil.getLogAxis(entryState) == Direction.Axis.Y && TreeUtil.canBeRoots(level, belowPos)) {
+            if(/*TreeUtil.getLogAxis(entryState) == Direction.Axis.Y &&*/TreeUtil.canBeRoots(level, belowPos)) {
                 BlockState rootState = TreeUtil.getRootForState(level.getBlockState(belowPos));
                 level.setBlock(belowPos, rootState, 19);
             }

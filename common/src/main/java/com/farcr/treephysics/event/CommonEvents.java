@@ -63,7 +63,7 @@ public class CommonEvents {
                     level.setBlock(belowPos, Blocks.DIRT.defaultBlockState(), 2);
                 }
 
-                if(TreeUtil.getLogAxis(brokenState) != Direction.Axis.Y) return;
+                // if(TreeUtil.getLogAxis(brokenState) != Direction.Axis.Y) return;
 
                 for (ServerSubLevel subLevel : subLevels) {
                     SubLevelPhysicsSystem system = SubLevelPhysicsSystem.get(level);

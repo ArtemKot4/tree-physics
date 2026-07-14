@@ -60,8 +60,6 @@ dependencies {
     }
 
     runtimeOnly("maven.modrinth:no-mans-land:1.5.5")
-    runtimeOnly("maven.modrinth:biolith:1ZfKhpFg")
-    runtimeOnly("maven.modrinth:mixed-litter:1.2.1")
 
     compileOnly("maven.modrinth:malum:$malum_version")
     compileOnly("maven.modrinth:lodestonelib:$lodestone_version")
