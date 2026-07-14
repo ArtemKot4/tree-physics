@@ -41,9 +41,11 @@ public class CommonEvents {
         ServerTreeManager manager = (ServerTreeManager) TreeManager.get(level);
 
         if(TreeUtil.isLog(brokenState)) {
+            //player.sendSystemMessage(Component.literal("я бревно!")); //debug
             if(manager.isTree(pos)) {
                 SubLevel tree = manager.getTree(pos);
                 manager.decrementLogs(tree);
+                //player.sendSystemMessage(Component.literal("я дерево!")); //debug
                 return;
             }
 
@@ -53,7 +55,8 @@ public class CommonEvents {
                 }
 
                 List<ServerSubLevel> subLevels = FloodFillUtil.trySplit((ServerLevel) level, pos);
-
+                //player.sendSystemMessage(Component.literal("попытался собрать, успешно: " + (subLevels.size() > 0))); //debug
+                
                 BlockPos belowPos = pos.below();
                 BlockState belowState = level.getBlockState(belowPos);
                 if(TreeUtil.isRoot(belowState) && TreePhysicsConfig.REMOVE_ROOTED_DIRT.get()) {
@@ -64,7 +67,6 @@ public class CommonEvents {
                 }
 
                 // if(TreeUtil.getLogAxis(brokenState) != Direction.Axis.Y) return;
-
                 for (ServerSubLevel subLevel : subLevels) {
                     SubLevelPhysicsSystem system = SubLevelPhysicsSystem.get(level);
                     RigidBodyHandle handle = system.getPhysicsHandle(subLevel);

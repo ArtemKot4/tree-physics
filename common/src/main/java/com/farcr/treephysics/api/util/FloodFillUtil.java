@@ -11,7 +11,6 @@ import dev.ryanhcode.sable.companion.math.BoundingBox3i;
 import dev.ryanhcode.sable.physics.config.block_properties.PhysicsBlockPropertyHelper;
 import dev.ryanhcode.sable.sublevel.ServerSubLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
@@ -72,16 +71,19 @@ public class FloodFillUtil {
         boolean rootless = TreePhysicsConfig.ROOTLESS_TREE_DETECTION.getAsBoolean();
         TreeResult tree = (rootless ? ROOTLESS_TREE_VALIDATOR : TREE_VALIDATOR).findBlocks(blockGetter, pos);
         if(tree != null) {
-            return tree.hasRoot() || (rootless && tree.hasLeaves() && tree.hasDirt());
+            //level.players().get(0).sendSystemMessage(Component.literal("дерево при помощи findBlocks нашлось, использован валидатор: " + tree.getClass().getName() + (", листья? " + tree.hasLeaves()) + (", корни? " + tree.hasRoot()) + ", главное условие? " + (tree.hasRoot() || (rootless && tree.hasLeaves()/*&& tree.hasDirt()*/))));
+            return tree.hasRoot() || (rootless && tree.hasLeaves()/*&& tree.hasDirt()*/);
         }
+        //level.players().get(0).sendSystemMessage(Component.literal("дерево в findBlocks не нашлось"));
         return false;
     }
 
     public static List<ServerSubLevel> trySplit(ServerLevel level, BlockPos pos) {
         if(!isValidTree(level, pos)) {
+            //level.getRandomPlayer().sendSystemMessage(Component.literal("провалено: не действительное дерево")); //debug
             return List.of();
         }
-
+        //level.getRandomPlayer().sendSystemMessage(Component.literal("Ис валид три прошло, начинаю сборку!"));
         TreeFloodFill floodFill = TREE_FINDER.ignore(pos);
 
         List<ServerSubLevel> subLevels = new ArrayList<>();
@@ -117,20 +119,7 @@ public class FloodFillUtil {
     }
 
     public static boolean logRule(BlockPos fromPos, BlockPos toPos, BlockState fromState, BlockState toState, TreeResult result) {
-        if(TreeUtil.isLog(fromState) && TreeUtil.isLog(toState)) {
-            if(TreeUtil.isSameLogType(fromState, toState)) {
-                return true;
-            } else {
-                BlockPos relative = toPos.subtract(fromPos);
-                Direction direction = Direction.getNearest(relative.getX(), relative.getY(), relative.getZ());
-
-                Direction.Axis fromAxis = TreeUtil.getLogAxis(fromState);
-                Direction.Axis toAxis = TreeUtil.getLogAxis(toState);
-                return fromAxis == direction.getAxis() && toAxis == direction.getAxis();
-            }
-        }
-
-        return false;
+        return TreeUtil.isLog(fromState) && TreeUtil.isLog(toState);
     }
 
     public static boolean leafRule(BlockPos fromPos, BlockPos toPos, BlockState fromState, BlockState toState, TreeResult result) {

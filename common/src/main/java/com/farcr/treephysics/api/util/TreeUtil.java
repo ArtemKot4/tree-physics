@@ -102,27 +102,27 @@ public class TreeUtil {
         return 0;
     }
 
-    public static @Nullable Direction.Axis getLogAxis(BlockState state) {
-        if(isLog(state)) {
-            if(state.hasProperty(BlockStateProperties.AXIS)) {
-                return state.getValue(BlockStateProperties.AXIS);
-            }
+    // public static @Nullable Direction.Axis getLogAxis(BlockState state) {
+    //     if(isLog(state)) {
+    //         if(state.hasProperty(BlockStateProperties.AXIS)) {
+    //             return state.getValue(BlockStateProperties.AXIS);
+    //         }
 
-            if(state.getBlock() instanceof HugeMushroomBlock) {
-                if(!state.getValue(HugeMushroomBlock.UP) && !state.getValue(HugeMushroomBlock.DOWN)) {
-                    return Direction.Axis.Y;
-                } else if (!state.getValue(HugeMushroomBlock.EAST) && !state.getValue(HugeMushroomBlock.WEST)) {
-                    return Direction.Axis.X;
-                } else if (!state.getValue(HugeMushroomBlock.NORTH) && !state.getValue(HugeMushroomBlock.SOUTH)) {
-                    return Direction.Axis.Z;
-                }
-            }
+    //         if(state.getBlock() instanceof HugeMushroomBlock) {
+    //             if(!state.getValue(HugeMushroomBlock.UP) && !state.getValue(HugeMushroomBlock.DOWN)) {
+    //                 return Direction.Axis.Y;
+    //             } else if (!state.getValue(HugeMushroomBlock.EAST) && !state.getValue(HugeMushroomBlock.WEST)) {
+    //                 return Direction.Axis.X;
+    //             } else if (!state.getValue(HugeMushroomBlock.NORTH) && !state.getValue(HugeMushroomBlock.SOUTH)) {
+    //                 return Direction.Axis.Z;
+    //             }
+    //         }
 
-            return Direction.Axis.Y;
-        }
+    //         return Direction.Axis.Y;
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     public static BlockState getDefaultRoot() {
         return Blocks.ROOTED_DIRT.defaultBlockState();
@@ -135,7 +135,7 @@ public class TreeUtil {
     public static void setDirtUnder(WorldGenLevel level, BlockPos blockPos, BlockState state) {
         BlockPos below = blockPos.below();
 
-        if(getLogAxis(state) == Direction.Axis.Y && canBeRoots(level, below)) {
+        if(canBeRoots(level, below)) {
             BlockState belowState = level.getBlockState(below);
             level.setBlock(below, getRootForState(belowState), 19);
         }

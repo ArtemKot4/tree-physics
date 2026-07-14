@@ -9,7 +9,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.ryanhcode.sable.api.sublevel.SubLevelContainer;
 import dev.ryanhcode.sable.sublevel.SubLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -90,23 +89,16 @@ public class TreeData {
         SubLevel subLevel = getSubLevel(level);
         if(subLevel != null) {
             int logs = 0;
-            int horizontalLogs = 0;
-            int verticalLogs = 0;
             for (BlockPos pos : TreeUtil.plotIterator(subLevel)) {
                 BlockState state = level.getBlockState(pos);
                 if(TreeUtil.isLog(state)) {
                     logs++;
-                    if(TreeUtil.getLogAxis(state) == Direction.Axis.Y) {
-                        verticalLogs++;
-                    } else {
-                        horizontalLogs++;
-                    }
                 } else if(TreeUtil.isLeaf(state)) {
                     this.hasLeaves = true;
                 }
             }
             this.logs = logs;
-            this.isBranch = horizontalLogs > verticalLogs;
+            this.isBranch = true;
         }
     }
 

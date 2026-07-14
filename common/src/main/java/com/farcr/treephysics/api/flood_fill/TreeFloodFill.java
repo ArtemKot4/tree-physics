@@ -2,6 +2,8 @@ package com.farcr.treephysics.api.flood_fill;
 
 import com.farcr.treephysics.api.util.FloodFillUtil;
 import com.farcr.treephysics.api.util.TreeUtil;
+import com.farcr.treephysics.index.TreePhysicsTags;
+
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
@@ -40,6 +42,7 @@ public class TreeFloodFill {
 
     public TreeResult findBlocks(BlockGetter blockGetter, BlockPos start) {
         if(!TreeUtil.isLog(blockGetter.getBlockState(start))) {
+            //level.players().get(0).sendSystemMessage(Component.literal("Завершено: не бревно " + start.getX() + " , " +  start.getY() + " , " +  start.getZ() + ", там " + level.getBlockState(start).getBlock().getDescriptionId()));
             return null;
         }
 
@@ -58,6 +61,10 @@ public class TreeFloodFill {
             if(!this.shouldIgnore(centerPos)) {
                 result.add(centerPos, centerState);
                 result.afterSpread(blockGetter, centerPos, centerState);
+            
+                if(centerState.is(TreePhysicsTags.LEAVES)) {
+                    result.leaves = true; //обходим лимиты, хы-хы)
+                }
             }
 
             if(this.earlyReturn != null && this.earlyReturn.test(result)) {
@@ -88,7 +95,7 @@ public class TreeFloodFill {
                 }
             }
         }
-
+        //level.players().get(0).sendSystemMessage(Component.literal("Завершено: собрано блоков " + result.getBlocks().size() ));
         return result;
     }
 

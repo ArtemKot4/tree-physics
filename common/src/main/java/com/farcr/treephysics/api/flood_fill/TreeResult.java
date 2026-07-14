@@ -21,7 +21,7 @@ public class TreeResult {
     private final Set<BlockPos> allBlocks = new ObjectOpenHashSet<>();
     private boolean root = false;
     private boolean dirt = false;
-    private boolean leaves = false;
+    public boolean leaves = false;
 
     public TreeResult(Collection<TagKey<Block>> tags, BlockPos start) {
         for (TagKey<Block> tag : tags) {
