@@ -67,9 +67,9 @@ public class FloodFillUtil {
             .addTag(TreePhysicsTags.TREE)
             .addTag(TreePhysicsTags.FALLS_FROM_TREES);
 
-    public static boolean isValidTree(BlockGetter blockGetter, BlockPos pos) {
+    public static boolean isValidTree(BlockGetter blockGetter, BlockPos pos, ServerLevel level) {
         boolean rootless = TreePhysicsConfig.ROOTLESS_TREE_DETECTION.getAsBoolean();
-        TreeResult tree = (rootless ? ROOTLESS_TREE_VALIDATOR : TREE_VALIDATOR).findBlocks(blockGetter, pos);
+        TreeResult tree = (rootless ? ROOTLESS_TREE_VALIDATOR : TREE_VALIDATOR).findBlocks(blockGetter, pos, level);
         if(tree != null) {
             //level.players().get(0).sendSystemMessage(Component.literal("дерево при помощи findBlocks нашлось, использован валидатор: " + tree.getClass().getName() + (", листья? " + tree.hasLeaves()) + (", корни? " + tree.hasRoot()) + ", главное условие? " + (tree.hasRoot() || (rootless && tree.hasLeaves()/*&& tree.hasDirt()*/))));
             return tree.hasRoot() || (rootless && tree.hasLeaves()/*&& tree.hasDirt()*/);
@@ -79,7 +79,7 @@ public class FloodFillUtil {
     }
 
     public static List<ServerSubLevel> trySplit(ServerLevel level, BlockPos pos) {
-        if(!isValidTree(level, pos)) {
+        if(!isValidTree(level, pos, level)) {
             //level.getRandomPlayer().sendSystemMessage(Component.literal("провалено: не действительное дерево")); //debug
             return List.of();
         }
@@ -92,7 +92,7 @@ public class FloodFillUtil {
         for (BlockPos offset : DIRECTION_OFFSETS_CORNERS) {
             BlockPos start = pos.offset(offset);
 
-            TreeResult tree = floodFill.findBlocks(level, start);
+            TreeResult tree = floodFill.findBlocks(level, start, level);
 
             if(tree != null && !(TreePhysicsConfig.ROOTLESS_TREE_DETECTION.get() ? tree.hasRoot() || tree.hasDirt() : tree.hasRoot())) {
                 Set<BlockPos> treeBlocks = tree.getBlocks(TreePhysicsTags.TREE);

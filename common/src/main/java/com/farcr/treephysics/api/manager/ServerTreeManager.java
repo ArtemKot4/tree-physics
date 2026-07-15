@@ -2,6 +2,7 @@ package com.farcr.treephysics.api.manager;
 
 import com.farcr.treephysics.api.util.TreeUtil;
 import com.farcr.treephysics.index.TreePhysicsConfig;
+import com.farcr.treephysics.index.TreePhysicsTags;
 import com.farcr.treephysics.networking.UpdateClientTrees;
 import dev.ryanhcode.sable.api.physics.PhysicsPipeline;
 import dev.ryanhcode.sable.api.physics.handle.RigidBodyHandle;
@@ -94,7 +95,7 @@ public class ServerTreeManager extends SavedData implements TreeManager {
 
                 for (BlockPos pos : TreeUtil.plotIterator(subLevel)) {
                     BlockState state = level.getBlockState(pos);
-                    if(!(state.getBlock() instanceof LeavesBlock)) continue;
+                    if(!(state.is(TreePhysicsTags.LEAVES))) continue;
                     if(state.getValue(LeavesBlock.DISTANCE) != distance) continue;
 
                     boolean shouldBreak = level.getRandom().nextFloat() <= breakChance;

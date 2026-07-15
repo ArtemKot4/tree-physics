@@ -6,10 +6,13 @@ import com.farcr.treephysics.index.TreePhysicsTags;
 
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -40,7 +43,7 @@ public class TreeFloodFill {
         return this;
     }
 
-    public TreeResult findBlocks(BlockGetter blockGetter, BlockPos start) {
+    public TreeResult findBlocks(BlockGetter blockGetter, BlockPos start, ServerLevel level) {
         if(!TreeUtil.isLog(blockGetter.getBlockState(start))) {
             //level.players().get(0).sendSystemMessage(Component.literal("Завершено: не бревно " + start.getX() + " , " +  start.getY() + " , " +  start.getZ() + ", там " + level.getBlockState(start).getBlock().getDescriptionId()));
             return null;
@@ -59,12 +62,19 @@ public class TreeFloodFill {
             visited.add(centerPos.asLong());
 
             if(!this.shouldIgnore(centerPos)) {
-                result.add(centerPos, centerState);
-                result.afterSpread(blockGetter, centerPos, centerState);
-            
                 if(centerState.is(TreePhysicsTags.LEAVES)) {
                     result.leaves = true; //обходим лимиты, хы-хы)
+                    if(centerState.getValue(BlockStateProperties.PERSISTENT) == true) {
+                        centerState = centerState.setValue(BlockStateProperties.PERSISTENT, false);
+                        level.setBlock(centerPos, centerState, 2);
+                        //level.getRandomPlayer().sendSystemMessage(Component.literal("блокстейт обновлён"));
+                    } //else {
+                        //level.getRandomPlayer().sendSystemMessage(Component.literal("листва и так должна опадать"));
+                    //}
+                    //level.getRandomPlayer().sendSystemMessage(Component.literal("дистанция " + centerState.getValue(BlockStateProperties.DISTANCE)));
                 }
+                result.add(centerPos, centerState);
+                result.afterSpread(blockGetter, centerPos, centerState);
             }
 
             if(this.earlyReturn != null && this.earlyReturn.test(result)) {

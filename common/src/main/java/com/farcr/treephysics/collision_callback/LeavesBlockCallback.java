@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3d;
 
+import com.farcr.treephysics.index.TreePhysicsTags;
+
 public class LeavesBlockCallback extends FragileBlockCallback {
     public static final LeavesBlockCallback INSTANCE = new LeavesBlockCallback();
 
@@ -37,7 +39,7 @@ public class LeavesBlockCallback extends FragileBlockCallback {
         // Double check that we're actually fragile before breaking (in-case pipeline gave us a slightly off collision position)
         final BlockState state = level.getBlockState(pos);
 
-        if (state.getBlock() instanceof LeavesBlock && state.getValue(LeavesBlock.PERSISTENT))
+        if (state.is(TreePhysicsTags.LEAVES) && state.getValue(LeavesBlock.PERSISTENT))
             return CollisionResult.NONE;
 
         if (this.shouldTriggerFor(state)) {
