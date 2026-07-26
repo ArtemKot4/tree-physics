@@ -57,7 +57,6 @@ public class ServerTreeManager extends SavedData implements TreeManager {
             if(subLevel == null || subLevel.isRemoved()) {
                 continue;
             }
-
             RigidBodyHandle handle = system.getPhysicsHandle(subLevel);
 
             Vector3d linearVel = handle.getLinearVelocity(new Vector3d());

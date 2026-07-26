@@ -96,9 +96,12 @@ public class FloodFillUtil {
 
             if(tree != null && !(TreePhysicsConfig.ROOTLESS_TREE_DETECTION.get() ? tree.hasRoot() || tree.hasDirt() : tree.hasRoot())) {
                 Set<BlockPos> treeBlocks = tree.getBlocks(TreePhysicsTags.TREE);
-                ServerSubLevel subLevel = SubLevelAssemblyHelper.assembleBlocks(level, pos, treeBlocks, new BoundingBox3i(pos, pos));
-                subLevels.add(subLevel);
-                manager.setTree(subLevel);
+                
+                try {
+                    ServerSubLevel subLevel = SubLevelAssemblyHelper.assembleBlocks(level, pos, treeBlocks, new BoundingBox3i(pos, pos));
+                    subLevels.add(subLevel);
+                    manager.setTree(subLevel);
+                } catch (Exception e) {}
 
                 Set<BlockPos> fallingBlocks = tree.getBlocks(TreePhysicsTags.FALLS_FROM_TREES);
                 for (BlockPos blockPos : fallingBlocks) {
